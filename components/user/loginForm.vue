@@ -54,7 +54,11 @@ export default {
             method: "POST",
             data: this.form
           }).then(res => {
-            console.log(res.data);
+            this.$store.commit("user/setUserInfo", res.data);
+            // 跳转到首页
+            setTimeout(() => {
+              this.$router.push("/");
+            }, 1000);
           });
         }
       });
