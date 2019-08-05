@@ -181,15 +181,15 @@ export default {
     handleSubmit() {
       // 表单验证
       if (!this.form.departCity) {
-        this.$$alert("出发城市不能为", "提示", { type: "warning" });
+        this.$alert("出发城市不能为", "提示", { type: "warning" });
         return;
       }
       if (!this.form.destCity) {
-        this.$$alert("到达城市不能为", "提示", { type: "warning" });
+        this.$alert("到达城市不能为", "提示", { type: "warning" });
         return;
       }
       if (!this.form.departDate) {
-        this.$$alert("出发时间不能为", "提示", { type: "warning" });
+        this.$alert("出发时间不能为", "提示", { type: "warning" });
         return;
       }
 
