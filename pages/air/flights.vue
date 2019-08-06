@@ -4,7 +4,7 @@
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
         <!-- 过滤条件 -->
-        <div></div>
+        <FlightsFilters :data="cacheFlightsData" @getDataList="getDataList" />
 
         <!-- 航班头部布局 -->
         <FlightsListHead />
@@ -34,6 +34,7 @@
       <!-- 侧边栏 -->
       <div class="aside">
         <!-- 侧边栏组件 -->
+        <FlightsAside />
       </div>
     </el-row>
   </section>
@@ -42,10 +43,22 @@
 <script>
 import FlightsListHead from "@/components/air/flightsListHead.vue";
 import FlightsItem from "@/components/air/flightsItem.vue";
+import FlightsFilters from "@/components/air/flightsFilters.vue";
+import FlightsAside from "@/components/air/flightsAside.vue";
 export default {
   data() {
     return {
-      flightsData: {}, //航班总数据
+      flightsData: {
+        //航班总数据
+        flights: {},
+        info: {},
+        options: {}
+      },
+      cacheFlightsData: {
+        flights: [],
+        info: {},
+        options: {}
+      },
       dataList: [], //航班列表数据，用于循环       flightsItem,单独出来因为要分页
       // 当前页数
       pageIndex: 1,
@@ -57,7 +70,18 @@ export default {
   },
   components: {
     FlightsListHead,
-    FlightsItem
+    FlightsItem,
+    FlightsFilters,
+    FlightsAside
+  },
+  // watch 是监听属性，可以监听实例下所有的属性变化this.xxx
+  watch: {
+    // 监听路由信息的变化
+    $route() {
+      // 请求新的数据
+      this.pageIndex = 1;
+      this.getData();
+    }
   },
   methods: {
     // 修改分页条数时候触发
@@ -76,7 +100,14 @@ export default {
       this.getDataList();
     },
     // 获取分页数据
-    getDataList() {
+    getDataList(arr) {
+      //过滤组件调用时候返回的过滤后的数据
+      if (arr) {
+        // 替换掉列表数据
+        this.flightsData.flights = arr;
+        this.total = arr.length;
+      }
+
       this.dataList = this.flightsData.flights.slice(
         (this.pageIndex - 1) * this.pageSize,
         (this.pageIndex - 1) * this.pageSize + this.pageSize
@@ -97,6 +128,8 @@ export default {
         this.dataList = this.flightsData.flights.slice(0, 2);
         // 总页数
         this.total = this.flightsData.flights.length;
+        // 缓存数据
+        this.cacheFlightsData = { ...res.data };
       });
     }
   },
