@@ -136,6 +136,7 @@ export default {
 
         // 循环给每一项数据添加一个value属性
         const newData = [];
+
         data.forEach(v => {
           v.value = v.name.replace("市", "");
           newData.push(v);
