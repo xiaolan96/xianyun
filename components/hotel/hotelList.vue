@@ -8,9 +8,8 @@
       class="hotelitem"
     >
       <el-col :span="8" class="image">
-        <a :href="$router.push('/hotel')">
-          <img :src="item.photos" alt />
-        </a>
+        <img :src="item.photos" alt />
+        <nuxt-link to></nuxt-link>
       </el-col>
       <el-col :span="10" class="list">
         <h2>

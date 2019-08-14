@@ -20,6 +20,7 @@
     <!-- 酒店列表 -->
     <HotelList :data="dataList" />
     <!-- 分页 -->
+    <Page />
   </div>
 </template>
 
@@ -27,6 +28,7 @@
 import Screen from "@/components/hotel/screen.vue";
 import HotelList from "@/components/hotel/hotelList.vue";
 import Map from "@/components/hotel/map.vue";
+import Page from "@/components/hotel/page.vue";
 export default {
   data() {
     return {
@@ -37,7 +39,8 @@ export default {
   components: {
     Screen,
     HotelList,
-    Map
+    Map,
+    Page
   },
   methods: {
     getData() {

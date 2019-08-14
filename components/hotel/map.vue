@@ -29,7 +29,7 @@ export default {
   methods: {
     getdataList() {
       this.$axios({
-        url: "/cities"
+        url: "/hotels"
       }).then(res => {
         console.log(res, "---------------------------------------+");
 
